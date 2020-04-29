@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+{% load item_extras %}
+{% load cloudinary %}
+
+{% block title %}Search | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main">
+        <div class="gia-archive gia-section gia-search-archive">
+
+            <div class="row columns">
+                <div class="gia-archive-items">
+                    {% if query %}
+                        <div class="row align-bottom">
+                            {% for result in page.object_list %}
+                                <div class="columns small-12 medium-6 large-4">
+                                    <div class="gia-archive-item">
+                                        <div class="row align-middle">
+
+                                            <!-- Item Image -->
+                                            <div class="column small-6 medium-12">
+                                                <a href="{{ result.object.get_absolute_url }}">
+                                                    {% if result.object.image1 %}
+                                                        {% cloudinary result.object.image1 %}
+                                                    {% elif result.object.image2 %}
+                                                        {% cloudinary result.object.image2 %}
+                                                    {% elif result.object.image3 %}
+                                                        {% cloudinary result.object.image3 %}
+                                                    {% else %}
+                                                        <img src="{% static 'img/no-thumbnail.jpg' %}" alt="">
+                                                    {% endif %}
+                                                </a>
+                                            </div>
+
+                                            <!-- Item Body -->
+                                            <div class="column small-6 medium-12">
+                                                <div class="gia-item-body">
+                                                    <div class="gia-item-name"><a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></div>
+                                                    <span class="gia-item-location">{{ result.object.get_location_display }}</span>
+                                                </div>
+                                            </div>
+                                        </div><!-- .row -->
+                                    </div><!-- .gia-archive-item -->
+                                </div>
+                            {% empty %}
+                                <div class="column small-12">
+                                    <h5 class="text-center">No results found.</h5>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        {% if page.has_previous or page.has_next %}
+                            <div class="gia-pagination">
+                                {% if page.has_previous %}
+                                    <a href="?q={{ query }}&amp;page={{ page.previous_page_number }}" class="pagination-previous">
+                                        <i class="fa fa-chevron-left"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if page.has_next %}
+                                    <a href="?q={{ query }}&amp;page={{ page.next_page_number }}">
+                                        <i class="fa fa-chevron-right"></i>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}

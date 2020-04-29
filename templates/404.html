@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+{% load item_extras %}
+
+{% block title %}Home | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <div class="gia-main gia-section">
+        <div class="row column">
+            <div class="gia-centered-container text-center">
+                <h2>Error 404.</h2>
+                <p>Sorry, but the page that you requested could not be found.</p>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

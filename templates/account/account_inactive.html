@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+
+{% block title %}Account Inactive | {{ block.super }}{% endblock %}
+
+{% block content %}
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <div class="gia-main gia-section">
+        <div class="row column">
+            <div class="gia-centered-container">
+        		<h1>Account Inactive</h1>
+        		<p>This account is inactive.</p>
+        	</div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.user.username }}
+{{ object.details }}
+{{ object.get_location_display }}

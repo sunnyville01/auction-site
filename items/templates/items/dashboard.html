@@ -1,0 +1,235 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+{% load humanize %}
+
+{% block title %}Dashboard | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main gia-section">
+        <div class="gia-dashboard">
+            <div class="row collapse">
+              <div class="small-12 large-3 columns">
+                <ul class="tabs vertical" id="example-vert-tabs" data-tabs>
+                  <li class="tabs-title is-active"><a href="#panel-profile" aria-selected="true">Profile</a></li>
+                  <li class="tabs-title"><a href="#panel-settings">Settings</a></li>
+                  <li class="tabs-title"><a href="#panel-activity">Activity</a></li>
+                </ul>
+                </div>
+                <div class="small-12 large-9 columns">
+                    <div class="tabs-content vertical" data-tabs-content="example-vert-tabs">
+
+                        <div class="tabs-panel is-active" id="panel-profile">
+                            <div class="gia-dashboard-panel">
+                                <div class="gia-section-heading gia-underlined-heading">
+                                    <h5>Public Info</h5>
+                                </div>
+                                <ul class="gia-dashboard-list">
+                                    <li>
+                                        <span class="gia-meta-title">Username:</span>
+                                        <span>{{ user.username }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="gia-meta-title">Member Since:</span>
+                                        <span>{{ user.date_joined|date:"t M Y"}}</span>
+                                    </li>
+                                    <li>
+                                        <span class="gia-meta-title">Items Given:</span>
+                                        <span class="badge">{{ free_items_count }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="gia-meta-title">Items Taken:</span>
+                                        <span class="badge">{{ wanted_items_count }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="gia-dashboard-panel">
+                                <div class="gia-section-heading gia-underlined-heading">
+                                    <h5>Private Info</h5>
+                                </div>
+                                <ul class="gia-dashboard-list">
+                                    <li>
+                                        <span class="gia-meta-title">Name:</span>
+                                        <span>{{ user.get_full_name }}</span>
+                                    </li>
+                                    <li>
+                                        <span class="gia-meta-title">Email:</span>
+                                        <span>{{ user.email }}</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="tabs-panel" id="panel-settings">
+
+                            <div class="gia-dashboard-panel">
+
+                                <div class="gia-section-heading gia-underlined-heading">
+                                    <h5>Private Info</h5>
+                                </div>
+
+                                <div class="row">
+                                    <div class="columns medium-7">
+
+                                        <form method="post" class="gia-form">
+                                            {% csrf_token %}
+                                            <!-- User Form Fields -->
+                                            {{ user_form.as_p }}
+
+                                            <!-- Profile Form (notifications checkbox) -->
+
+                                            <button type="submit" class="button">Save Changes</button>
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="gia-dashboard-panel">
+                                <div class="gia-section-heading gia-underlined-heading">
+                                    <h5>Change Password</h5>
+                                </div>
+                                <div class="row">
+                                    <div class="columns medium-7">
+                                        <p>To change the password to your account please <a href="{% url "password_change" %}">Click Here</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="tabs-panel tabs-panel-no-padding" id="panel-activity">
+
+                            <ul class="tabs" data-tabs id="example-tabs-1">
+                              <li class="tabs-title is-active"><a href="#giving-panel" aria-selected="true">Giving Away</a></li>
+                              <li class="tabs-title"><a href="#wanted-panel">Wanted</a></li>
+                              <li class="tabs-title"><a href="#offered-panel">Offered</a></li>
+                              <li class="tabs-title"><a href="#requested-panel">Requested</a></li>
+                              <li class="tabs-title"><a href="#completed-panel">Completed</a></li>
+                            </ul>
+
+                            <div class="tabs-content" data-tabs-content="example-tabs-1">
+                                <div class="tabs-panel tabs-panel-no-padding" id="giving-panel">
+                                    <div class="table-row table-header">
+                                        <div class="table-cells large-cell">Item Name</div>
+                                        <div class="table-cells">Category</div>
+                                        <div class="table-cells">Date Created</div>
+                                        <div class="table-cells small-cell">Status</div>
+                                    </div>
+                                    {% if items_giving %}
+                                        {% for item in items_giving %}
+                                            <div class="table-row" href="#">
+                                                <span class="table-cells large-cell"><a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">{{ item.name }}</a></span>
+                                                <span class="table-cells">{{ item.category }}</span>
+                                                <span class="table-cells">{{ item.posted_on|date:"t M Y" }}</span>
+                                                <span class="table-cells small-cell">{{ item.get_status_display }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="table-message">
+                                            <p>You have no items for giving away.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="tabs-panel tabs-panel-no-padding" id="wanted-panel">
+                                    <div class="table-row table-header">
+                                        <div class="table-cells large-cell">Item Name</div>
+                                        <div class="table-cells">Category</div>
+                                        <div class="table-cells">Date Created</div>
+                                        <div class="table-cells small-cell">Status</div>
+                                    </div>
+                                    {% if items_wanted %}
+                                        {% for item in items_wanted %}
+                                            <div class="table-row" href="#">
+                                                <span class="table-cells large-cell"><a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">{{ item.name }}</a></span>
+                                                <span class="table-cells">{{ item.category }}</span>
+                                                <span class="table-cells">{{ item.posted_on|date:"t M Y" }}</span>
+                                                <span class="table-cells small-cell">{{ item.get_status_display }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="table-message">
+                                            <p>You have no wanted items.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="tabs-panel tabs-panel-no-padding" id="offered-panel">
+                                    <div class="table-row table-header">
+                                        <div class="table-cells large-cell">Item Name</div>
+                                        <div class="table-cells">Category</div>
+                                        <div class="table-cells">Date Created</div>
+                                        <div class="table-cells small-cell">Status</div>
+                                    </div>
+                                    {% if items_offered %}
+                                        {% for item in items_offered %}
+                                            <div class="table-row" href="#">
+                                                <span class="table-cells large-cell"><a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">{{ item.name }}</a></span>
+                                                <span class="table-cells">{{ item.category }}</span>
+                                                <span class="table-cells">{{ item.posted_on|date:"t M Y" }}</span>
+                                                <span class="table-cells small-cell">{{ item.get_status_display }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="table-message">
+                                            <p>You haven't offered to give any wanted items.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="tabs-panel tabs-panel-no-padding" id="requested-panel">
+                                    <div class="table-row table-header">
+                                        <div class="table-cells large-cell">Item Name</div>
+                                        <div class="table-cells">Category</div>
+                                        <div class="table-cells">Date Created</div>
+                                        <div class="table-cells small-cell">Status</div>
+                                    </div>
+                                    {% if items_requested %}
+                                        {% for item in items_requested %}
+                                            <div class="table-row" href="#">
+                                                <span class="table-cells large-cell">
+                                                    <a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">{{ item.name }}</a>
+                                                </span>
+                                                <span class="table-cells">{{ item.category }}</span>
+                                                <span class="table-cells">{{ item.posted_on|date:"t M Y" }}</span>
+                                                <span class="table-cells small-cell">{{ item.get_status_display }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="table-message">
+                                            <p>You haven't requested any offered items.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="tabs-panel tabs-panel-no-padding" id="completed-panel">
+                                    <div class="table-row table-header">
+                                        <div class="table-cells large-cell">Item Name</div>
+                                        <div class="table-cells">Category</div>
+                                        <div class="table-cells">Date Created</div>
+                                        <div class="table-cells small-cell">Status</div>
+                                    </div>
+                                    {% if items_completed %}
+                                        {% for item in items_completed %}
+                                            <div class="table-row" href="#">
+                                                <span class="table-cells large-cell"><a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">{{ item.name }}</a></span>
+                                                <span class="table-cells">{{ item.category }}</span>
+                                                <span class="table-cells">{{ item.posted_on|date:"t M Y" }}</span>
+                                                <span class="table-cells small-cell">{{ item.get_status_display }}</span>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <div class="table-message">
+                                            <p>You haven't completed any offered items.</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

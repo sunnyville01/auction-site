@@ -1,0 +1,149 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+{% load humanize %}
+
+{% block title %}Messages | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main gia-section">
+        <div class="gia-usermessages">
+            <div class="row collapse">
+              <div class="small-12 large-3 columns">
+                <ul class="tabs vertical" id="gia-vert-tabs" data-tabs>
+                  <li class="tabs-title is-active"><a href="#panel-inbox" aria-selected="true">Inbox</a></li>
+                  <li class="tabs-title"><a href="#panel-sent">Sent</a></li>
+                </ul>
+                </div>
+                <div class="small-12 large-9 columns">
+                    <div class="tabs-content vertical" data-tabs-content="gia-vert-tabs">
+
+                        <!-- Inbox Messages -->
+                        <div class="tabs-panel tabs-panel-no-padding is-active" id="panel-inbox">
+                            <div class="table-row table-header">
+                                <div class="table-cells small-cell">From</div>
+                                <div class="table-cells large-cell">Item</div>
+                                <div class="table-cells">Type</div>
+                                <div class="table-cells">Date</div>
+                            </div>
+                            <div class="accordion" data-accordion data-allow-all-closed="true">
+                                {% if inbox_messages %}
+                                    {% for message in inbox_messages %}
+                                        <div class="accordion-item" data-accordion-item>
+                                            <a class="table-row accordion-title" href="#">
+                                                {% if message.from_user.username == "admin" %}
+                                                    <span class="table-cells small-cell"><i>Moderators</i></span>
+                                                {% else %}
+                                                    <span class="table-cells small-cell">{{ message.from_user.username }}</span>
+                                                {% endif %}
+                                                <span class="table-cells large-cell">{{ message.item.name }}</span>
+                                                <span class="table-cells">{{ message.get_tag_display }}</span>
+                                                <span class="table-cells">{{ message.date|naturaltime }}</span>
+                                            </a>
+                                            <div class="accordion-content" data-tab-content>
+                                                <div class="accordion-content-wrapper">
+                                                    <div class="gia-profile-message">
+
+                                                        {% if message.related_to %}
+                                                            <div class="gia-profile-message-panel">
+                                                                <h6>Your Message: <small>({{ message.related_to.date|date:"t M Y"}})</small></h6>
+                                                                <p>{{ message.related_to.message }}</p>
+                                                            </div>
+                                                        {% endif %}
+
+
+                                                        {% if message.pickup_time %}
+                                                            <div class="gia-profile-message-panel">
+                                                                <h6>Pickup Time:</h6>
+                                                                <p>{{ message.pickup_time }}</p>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if message.message %}
+                                                            <div class="gia-profile-message-panel">
+                                                                <h6>Message:</h6>
+                                                                <p>{{ message.message }}</p>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                    <span class="gia-message-action-link">
+                                                        <a href="{% url 'items:reply' pk=message.pk slug=message.item.slug %}">Reply</a>
+                                                    </span>
+                                                    {% if message.tag == 'request' %}
+                                                        <a href="{% url 'items:choose_user' username=message.from_user.username pk=message.item.pk %}" class="gia-message-action-link">
+                                                            Choose User
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="table-message">
+                                        <p>Inbox empty.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Sent Messages -->
+                        <div class="tabs-panel tabs-panel-no-padding" id="panel-sent">
+                            <div class="table-row table-header">
+                                <div class="table-cells small-cell">To</div>
+                                <div class="table-cells large-cell">Item</div>
+                                <div class="table-cells">Type</div>
+                                <div class="table-cells">Date</div>
+                            </div>
+                            <div class="accordion" data-accordion data-allow-all-closed="true">
+                                {% if sent_messages %}
+                                    {% for message in sent_messages %}
+                                        <div class="accordion-item" data-accordion-item>
+                                            <a class="table-row accordion-title" href="#">
+                                                {% if message.to_user.username == "admin" %}
+                                                    <span class="table-cells small-cell"><i>Moderators</i></span>
+                                                {% else %}
+                                                    <span class="table-cells small-cell">{{ message.to_user.username }}</span>
+                                                {% endif %}
+                                                <span class="table-cells large-cell">{{ message.item.name }}</span>
+                                                <span class="table-cells">{{ message.get_tag_display }}</span>
+                                                <span class="table-cells">{{ message.date|naturaltime }}</span>
+                                            </a>
+                                            <div class="accordion-content" data-tab-content>
+                                                <div class="accordion-content-wrapper">
+                                                    <div class="gia-profile-message">
+
+                                                        {% if message.pickup_time %}
+                                                            <div class="gia-profile-message-panel">
+                                                                <h6>Pickup Time:</h6>
+                                                                <p>{{ message.pickup_time }}</p>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if message.message %}
+                                                            <div class="gia-profile-message-panel">
+                                                                <h6>Message:</h6>
+                                                                <p>{{ message.message }}</p>
+                                                            </div>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                {% else %}
+                                    <div class="table-message">
+                                        <p>No Sent messages.</p>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+{% endblock %}

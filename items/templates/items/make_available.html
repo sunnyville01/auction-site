@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+
+{% block title %}Make Item Available | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <div class="gia-main gia-section">
+        <div class="row column">
+            <div class="gia-centered-container">
+                <h4 class="text-center">Make item: {{ item.name }} available again?</h4>
+                <form method='POST' class="gia-form">
+                	{% csrf_token %}
+                    <input name="{{ form.status.html_name }}" id="{{ form.status.id_for_label }}"
+                           value="{{ form.status.value }}" type="hidden">
+                	<input type="submit" class="button" value="Make Available">
+                    <a href="{% url 'items:home' %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

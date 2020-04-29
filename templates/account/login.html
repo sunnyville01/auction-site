@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+{% load account socialaccount %}
+{% load item_extras %}
+
+{% block title %}Sign In | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+	<!-- Hero Search-->
+	{% hero_search %}
+
+	<div class="gia-main gia-section">
+		<div class="row column">
+			<div class="gia-centered-container">
+
+				<div class="gia-auth-form">
+
+					{% get_providers as socialaccount_providers %}
+					{% if socialaccount_providers %}
+
+						<div class="gia-social-auth">
+							<span>Simple Sign in with:</span>
+							<a href="{% provider_login_url 'google' %}" class="gia-google-auth">
+								<span class="gia-provider-icon">
+									<i class="fa fa-google"></i>
+								</span>
+								<span class="gia-provider-text">Google</span>
+							</a>
+							<a href="{% provider_login_url 'twitter' %}" class="gia-twitter-auth">
+								<span class="gia-provider-icon">
+									<i class="fa fa-twitter"></i>
+								</span>
+								<span class="gia-provider-text">Twitter</span>
+							</a>
+						</div>
+
+						<div class="or-container">
+							<hr class="or-hr">
+							<div id="or">or</div>
+						</div>
+
+						{% include "socialaccount/snippets/login_extra.html" %}
+					{% endif %}
+
+					<form class="login" method="POST" action="{% url 'account_login' %}">
+						{% csrf_token %}
+
+						{% if form.errors %}
+						    <ul class="gia-alert error">
+							    {% for error in form.non_field_errors %}
+						            <li>{{ error|escape }}</li>
+							    {% endfor %}
+						    </ul>
+						{% endif %}
+
+						{% for field in form %}
+							{% if 'remember' in field.label_tag %}
+						    	<div class="fieldWrapper gia-checkbox-fieldwrapper">
+							        {{ field.errors }}
+								    <label for="{{ form.remember.id_for_label }}" class="gia-form-checkbox">
+								    	{{ form.remember }}
+								    	Remember Me
+								    </label>
+							        {% if field.help_text %}
+							        	<p class="help">{{ field.help_text|safe }}</p>
+							        {% endif %}
+							    </div>
+					        {% else %}
+						    	<div class="fieldWrapper">
+							        {{ field.errors }}
+							        {{ field.label_tag }} {{ field }}
+							        {% if field.help_text %}
+							        	<p class="help">{{ field.help_text|safe }}</p>
+							        {% endif %}
+							    </div>
+							{% endif %}
+						{% endfor %}
+
+						{% if redirect_field_value %}
+						  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+						{% endif %}
+						<button class="button large gia-button-block" type="submit">Sign In</button>
+
+						<div class="gia-forgotten-password">
+							Forgotten your passowrd?&nbsp;<a href="{% url 'account_reset_password' %}">Reset here</a>
+						</div>
+					</form>
+				</div><!-- .gia-auth-form -->
+
+				<div class="gia-auth-extra-box">
+					<span>Don't have an account?&nbsp;<a href="{% url "account_signup" %}">Sign Up</a></span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

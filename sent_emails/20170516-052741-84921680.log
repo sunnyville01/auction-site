@@ -1,0 +1,18 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [AuctionSite] Please Confirm Your E-mail Address
+From: webmaster@localhost
+To: bac@example.com
+Date: Tue, 16 May 2017 01:27:41 -0000
+Message-ID: <20170516012741.11016.10478@DESKTOP-H08C93U.Home>
+
+Hello from AuctionSite!
+
+You're receiving this e-mail because user killy has given yours as an e-mail address to connect their account.
+
+To confirm this is correct, go to http://127.0.0.1:8000/accounts/confirm-email/MTk:1dARH3:GWM3SPU5MPRGjGDJsukXEWWU0Uc/
+
+Thank you from AuctionSite!
+http://127.0.0.1
+-------------------------------------------------------------------------------

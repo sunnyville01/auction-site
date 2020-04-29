@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+{% load cloudinary %}
+
+
+{% block title %}{{ item.name|title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main gia-section">
+        <div class="row align-justify">
+
+            <div class="columns small-12 medium-6 small-order-2 medium-order-1">
+                <div class="gia-item-details">
+                    <div class="gia-details-header">
+                        <h2 class="gia-item-name">{{ item.name }}</h2>
+                        <p class="gia-item-location"><span class="gia-meta-title">Located in:</span>{{ item.get_location_display }}{% if item.location_detail %}, {{ item.location_detail }}{% endif %}</p>
+                        <p class="gia-item-date">
+                            <span class="gia-meta-title">Posted on:</span>{{ item.posted_on|date:"t M Y" }}
+                            <!-- <small>- Expires in 2 months</small> -->
+                        </p>
+                    </div>
+                    <div class="gia-details-description">
+                        <p>{{ item.details }}</p>
+                    </div>
+                    <div class="gia-details-footer">
+                        <div class="row align-justify align-middle">
+                            <div class="columns">
+                                {% if item.user == request.user %}
+                                    <a href="{% url 'items:update' pk=item.pk slug=item.slug %}" class="button large gia-request-button">Edit Item</a>
+                                {% elif item.status == 'available' or item.status == 'awaiting' %}
+                                    {% if item.post_type == 'free' %}
+                                        <a href="{% url 'items:request' pk=item.pk slug=item.slug %}" class="button large gia-request-button">Request Item</a>
+                                    {% else %}
+                                        <a href="{% url 'items:offer' pk=item.pk slug=item.slug %}" class="button large gia-request-button">Offer Item</a>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            <div class="columns shrink">
+                                {% include 'partials/social_share.html' %}
+                            </div>
+                        </div>
+                        <div class="row column">
+                            <p class="gia-item-availability"><span class="gia-meta-title">This item is:</span>{{ item.get_status_display }}</p>
+                            {% if item.status != 'available' and item.user == request.user %}
+                                <a href="{% url 'items:make_available' pk=item.pk %}">Make it Available Again</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            {% if item.image1 or item.image2 or item.image3 %}
+
+                <!-- Images Column -->
+                <div class="columns small-12 medium-6 small-order-1 medium-order-2">
+                    <div class="orbit gia-single-images" role="region" aria-label="Item Images" data-orbit>
+                        <ul class="orbit-container">
+
+                            <!-- Show buttons only if there are more than one.... -->
+                            {% if item.image1 and item.image2 or item.image1 and item.image3 or item.image2 and item.image3  %}
+                                <button class="button-orbit orbit-previous"><span class="show-for-sr">Previous Slide</span>&#9664;&#xFE0E;</button>
+                                <button class="button-orbit orbit-next"><span class="show-for-sr">Next Slide</span>&#9654;&#xFE0E;</button>
+                            {% endif %}
+
+                            {% if item.image1 %}
+                                <li class="is-active orbit-slide">
+                                    <img class="orbit-image" src="{% cloudinary_url item.image1 %}" alt="{{ item.name }}">
+                                </li>
+                            {% endif %}
+                            {% if item.image2 %}
+                                <li class="orbit-slide">
+                                    <img class="orbit-image" src="{% cloudinary_url item.image2 %}" alt="{{ item.name }}">
+                                </li>
+                            {% endif %}
+                            {% if item.image3 %}
+                                <li class="orbit-slide">
+                                    <img class="orbit-image" src="{% cloudinary_url item.image3 %}" alt="{{ item.name }}">
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+            <div class="columns small-12 medium-6 small-order-3">
+                <div class="gia-user-detail">
+                    <div class="row columns">
+                        <div class="gia-section-heading gia-underlined-heading">
+                            <h4>Posted by</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="columns">
+                            <ul class="gia-user-meta">
+                                <li>
+                                    <span class="gia-meta-title">Member:</span>
+                                    <span>{{ item.user.username }}</span>
+                                </li>
+                                <li>
+                                    <span class="gia-meta-title">Items Given:</span>
+                                    <span class="badge">{{ free_items_count }}</span>
+                                </li>
+                                <li>
+                                    <span class="gia-meta-title">Items Taken:</span>
+                                    <span class="badge">{{ wanted_items_count }}</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="columns">
+                            <ul class="gia-user-links">
+                                <li>
+                                    <i class="fa fa-id-card"></i>
+                                    <a href="{% url 'items:profile' username=item.user.username %}">See other items by {{ item.user.username }}</a>
+                                </li>
+                                <li>
+                                    <i class="fa fa-question-circle"></i>
+                                    <a href="{% url 'items:ask' pk=item.pk slug=item.slug %}">Ask a Question</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columns small-12 medium-6 small-order-4">
+                <div class="gia-report-note">
+                    <p>Something not quite right? <a href="{% url 'items:report' pk=item.pk slug=item.slug %}">Report</a></p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+{% endblock %}

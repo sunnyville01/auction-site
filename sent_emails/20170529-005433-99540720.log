@@ -1,0 +1,21 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [AuctionSite] Password Reset E-mail
+From: webmaster@localhost
+To: abc@example.com
+Date: Sun, 28 May 2017 20:54:33 -0000
+Message-ID: <20170528205433.7868.84508@DESKTOP-H08C93U.Home>
+
+Hello from AuctionSite!
+
+You're receiving this e-mail because you or someone else has requested a password for your user account.
+It can be safely ignored if you did not request a password reset. Click the link below to reset your password.
+
+http://127.0.0.1:8000/accounts/password/reset/key/c-4mg-b06f62fbaedbba8c5328/
+
+In case you forgot, your username is admin.
+
+Thank you for using AuctionSite!
+http://127.0.0.1
+-------------------------------------------------------------------------------

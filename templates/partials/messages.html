@@ -1,0 +1,7 @@
+{% if messages %}
+    <div class="messages gia-messages">
+        {% for message in messages %}
+            <span{% if message.tags %} class="gia-alert {{ message.tags }}"{% endif %}>{{ message }}</span>
+        {% endfor %}
+    </div>
+{% endif %}

@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% load account socialaccount %}
+{% load item_extras %}
+
+{% block title %}Sign Up | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+	<!-- Hero Search-->
+	{% hero_search %}
+
+	<div class="gia-main gia-section">
+		<div class="row column">
+			<div class="gia-centered-container">
+
+				<div class="gia-auth-form">
+
+					{% get_providers as socialaccount_providers %}
+					{% if socialaccount_providers %}
+
+						<div class="gia-social-auth">
+							<span>Simple Sign in with:</span>
+							<a href="{% provider_login_url 'google' %}" class="gia-google-auth">
+								<span class="gia-provider-icon">
+									<i class="fa fa-google"></i>
+								</span>
+								<span class="gia-provider-text">Google</span>
+							</a>
+							<a href="{% provider_login_url 'twitter' %}" class="gia-twitter-auth">
+								<span class="gia-provider-icon">
+									<i class="fa fa-twitter"></i>
+								</span>
+								<span class="gia-provider-text">Twitter</span>
+							</a>
+						</div>
+
+						<div class="or-container">
+							<hr class="or-hr">
+							<div id="or">or</div>
+						</div>
+
+						{% include "socialaccount/snippets/login_extra.html" %}
+					{% endif %}
+
+					<form class="signup gia-form" id="signup_form" method="post" action="{% url 'account_signup' %}">
+						{% csrf_token %}
+
+						{{ form.non_field_errors }}
+						<div class="fieldWrapper">
+						    {{ form.username.errors }}
+						    <label for="{{ form.username.id_for_label }}">Username:</label>
+						    {{ form.username }}
+						</div>
+						<div class="fieldWrapper">
+						    {{ form.email.errors }}
+						    <label for="{{ form.email.id_for_label }}">Email:</label>
+						    {{ form.email }}
+						</div>
+						<div class="fieldWrapper">
+						    {{ form.password1.errors }}
+						    <label for="{{ form.password1.id_for_label }}">Password:</label>
+						    {{ form.password1 }}
+						</div>
+						<div class="fieldWrapper">
+						    {{ form.password2.errors }}
+						    <label for="{{ form.password2.id_for_label }}">Password (again):</label>
+						    {{ form.password2 }}
+						</div>
+						<div class="fieldWrapper gia-checkbox-fieldwrapper">
+						    {{ form.accept_tos.errors }}
+						    <label for="{{ form.accept_tos.id_for_label }}" class="gia-form-checkbox">
+						    	{{ form.accept_tos }}
+						    	I agree to the&nbsp;<a href="{% url "items:tos" %}" target="_blank">Terms of Use</a>
+						    </label>
+						</div>
+						{% if redirect_field_value %}
+						  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+						{% endif %}
+						<button type="submit" class="button large">Sign Up</button>
+					</form>
+
+				</div><!-- .gia-auth-form -->
+
+				<div class="gia-auth-extra-box">
+					<span>Already have an account?&nbsp;<a href="{% url "account_login" %}">Login</a></span>
+				</div>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

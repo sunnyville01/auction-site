@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+
+{% block title %}Request Item | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main gia-section">
+        <form method="POST" class="gia-form">
+            <div class="row align-center">
+                <div class="medium-6 columns">
+                    <ul class="gia-form-meta">
+                        <li>
+                            <span class="gia-meta-title">To:</span>
+                            <span>{{ to_user }}</span>
+                        </li>
+                        <li>
+                            <span class="gia-meta-title">From:</span>
+                            <span>{{ from_user }}</span>
+                        </li>
+                        <li>
+                            <span class="gia-meta-title">Item:</span>
+                            <span>{{ item_name }}</span>
+                        </li>
+                    </ul>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <input type="submit" class="button" value="Send">
+                </div>
+            </div>
+        </form>
+    </main>
+
+{% endblock %}

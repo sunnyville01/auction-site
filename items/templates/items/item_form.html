@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+{% load static from staticfiles %}
+
+{% block title %}{{ page_title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main gia-section">
+        <div class="row column">
+            <div class="gia-section-heading gia-form-heading text-center">
+                <h3><b>Give</b> stuff away &amp; <br><b>Find</b> stuff you need</h3>
+                <p>Quick free listings</p>
+            </div>
+        </div>
+
+        <form method="POST" class="gia-form gia-main-form" enctype="multipart/form-data">
+            <div class="row column">
+                <div class="gia-centered-container">
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        {% if 'image' in field.name %}
+
+                            {% if 'image1' in field.name %}
+
+                            {% if form.instance.pk %}
+                            <label class="gia-image-fields-label">Upload Images</label>
+                            <div class="gia-image-fields gia-image-fields-update">
+                            {% else %}
+                            <label class="gia-image-fields-label">Images (optional):</label>
+                            <div class="gia-image-fields">
+                            {% endif %}
+
+                            {% endif %}
+
+                                <div class="gia-image-field">
+                                    {{ field.errors }}
+                                    {{ field }}
+                                    <label for="{{ field.id_for_label }}"><i class="fa fa-upload"></i><span>Choose {% if form.instance.pk %}New {% endif %}File</span></label>
+                                    {% if field.help_text %}
+                                    <p class="help">{{ field.help_text|safe }}</p>
+                                    {% endif %}
+                                </div>
+
+                            {% if 'image3' in field.name %}
+                            </div><!-- .gia-image-fields -->
+                            {% endif %}
+
+                        {% elif 'other_category' in field.name %}
+
+                            <div id="other_category_field">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+
+                        {% else %}
+                            <div class="fieldWrapper">
+                                {{ field.errors }}
+                                {{ field.label_tag }} {{ field }}
+                                {% if field.help_text %}
+                                <p class="help">{{ field.help_text|safe }}</p>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+
+                    <input type="submit" class="button large" value="Submit">
+                </div>
+            </div>
+        </form>
+
+        <!-- If it's an Update View -->
+        {% if form.instance.pk %}
+            <div class="row column">
+                <div class="gia-centered-container">
+                    <div class="gia-item-delete">
+                        <h5>Delete Item? </h5>
+                        <a href="{% url 'items:delete' pk=item.pk slug=item.slug %}" class="button alert">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </main>
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="{% static 'js/gia-form.js' %}"></script>
+{% endblock %}

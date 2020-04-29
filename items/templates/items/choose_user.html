@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+
+{% block title %}Choose User | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <div class="gia-main gia-section">
+        <div class="row column">
+            <div class="gia-centered-container">
+                <h4 class="text-center">Complete {{ item.name }}?</h4>
+                <form method='POST' class="gia-form">
+                	{% csrf_token %}
+                    {{ form.as_p }}
+                	<input type="submit" class="button" value="Choose User">
+                    <a href="{% url 'items:home' %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

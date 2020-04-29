@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+
+{% block title %}Sign Out | {{ block.super }}{% endblock %}
+
+{% block content %}
+	<!-- Hero Search-->
+	{% hero_search %}
+
+	<div class="gia-main gia-section">
+		<div class="row column">
+			<div class="gia-centered-container">
+				<h2>Sign Out</h2>
+				<p>Are you sure you want to sign out?</p>
+				<form method="post" action="{% url 'account_logout' %}">
+				  {% csrf_token %}
+				  {% if redirect_field_value %}
+				  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+				  {% endif %}
+				  <button type="submit" class="button">Sign Out</button>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

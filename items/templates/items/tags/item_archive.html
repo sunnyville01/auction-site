@@ -1,0 +1,71 @@
+{% load static from staticfiles %}
+{% load cloudinary %}
+
+<div class="row column">
+    <div class="gia-archive-items">
+
+        <!-- Archive Items -->
+        <div class="row align-bottom">
+            {% if item_list %}
+                {% for item in item_list %}
+                    <div class="columns small-12 medium-6 large-4">
+                        <div class="gia-archive-item">
+                            <div class="row align-middle">
+
+                                <!-- Item Image -->
+                                <div class="column small-6 medium-12">
+                                    <a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">
+                                        {% if item.image1 %}
+                                            {% cloudinary item.image1 %}
+                                        {% elif item.image2 %}
+                                            {% cloudinary item.image2 %}
+                                        {% elif item.image3 %}
+                                            {% cloudinary item.image3 %}
+                                        {% else %}
+                                            <img src="{% static 'img/no-thumbnail.jpg' %}" alt="">
+                                        {% endif %}
+                                    </a>
+                                </div>
+
+                                <!-- Item Body -->
+                                <div class="column small-6 medium-12">
+                                    <div class="gia-item-body">
+                                        <div class="gia-item-name"><a href="{% url 'items:detail' pk=item.pk slug=item.slug %}">{{ item.name }}</a></div>
+                                        <span class="gia-item-location">{{ item.get_location_display }}</span>
+                                    </div>
+                                </div>
+                            </div><!-- .row -->
+                        </div><!-- .gia-archive-item -->
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="columns small-12">
+                    <h3 class="gia-section-heading text-center">No Items</h3>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+            <div class="gia-pagination" role="navigation" aria-label="Pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?page={{ page_obj.previous_page_number }}" class="pagination-previous" aria-label="Previous page">
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                {% endif %}
+                {% for page in paginator.page_range %}
+                    {% if page == page_obj.number %}
+                        <span class="current"><span class="show-for-sr">You're on page</span> <span>{{ page }}</span></span>
+                    {% else %}
+                        <a href="?page={{ page }}" aria-label="Page 2"><span>{{ page }}</span></a>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <a href="?page={{ page_obj.next_page_number }}" class="pagination-next" aria-label="Next page">
+                        <i class="fa fa-chevron-right"></i>
+                    </a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,1765 @@
+/**
+ * Colors
+ */
+$default_bg: #fff;
+$alternative_bg: #efefef;
+$dark_bg: #222534;
+
+$border_light: #efefef;
+$border_dark: #ececec;
+
+$heading: #2f2f2f;
+$body: #5f5f5f;
+$sub_body: #8f8f8f;
+
+$heading_light: #f1f1f1;
+$body_light: #efefef;
+$sub_body_light: #dfdfdf;
+
+$selection: #eee;
+$accent_main: #10a373;
+$accent_secondary: #2b1268;
+
+/**
+ * Fonts
+ */
+$heading_font: "Lato", Arial, sans-serif;
+$body_font: "Source Sans Pro", Arial, serif;
+
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Base
+ * -------------------------------------------------------------------------------------
+ */
+
+body {
+	background-color: $default_bg;
+	font-family: $body_font;
+	font-size: 16px;
+	line-height: 1.6;
+	letter-spacing: 0.006em;
+	color: $body;
+	text-rendering: optimizeLegibility;
+	overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: $heading_font;
+	font-weight: bold;
+	margin-top: 0px;
+	color: $heading;
+
+	small {
+		color: $sub_body;
+	}
+}
+
+
+a {
+	text-decoration: none;
+	outline: none;
+	max-width: 100%;
+	color: $accent_main;
+	transition: all 0.1s;
+
+
+	&.gia-link-body {
+		color: $body;
+	}
+	&.gia-link-sub {
+		color: $sub_body;
+	}
+	&.gia-link-body-light {
+		color: $body_light;
+	}
+	&.gia-link-sub-light {
+		color: $sub_body_light;
+	}
+
+	&:hover,
+	&:focus {
+		color: lighten($accent_main, 7%);
+		transition: all 0.3s;
+		outline: none;
+	}
+}
+
+img{
+	max-width: 100%;
+	height: auto;
+}
+
+::selection {
+	background-color: $selection;
+}
+
+pre{
+  border-color: $border_dark;
+}
+
+blockquote{
+	border-left: 4px solid $accent_main;
+}
+
+q {
+  quotes: "\201C" "\201D" "\2018" "\2019";
+}
+
+q:before{
+  width: 10px;
+  margin-right: 3px;
+  font-size: 160%;
+}
+
+q:after{
+  margin-left: 5px;
+  font-size: 160%;
+}
+
+cite{
+	font-weight: bold;
+}
+
+hr{
+	border-color: $border_dark;
+}
+
+select {
+	display: block;
+}
+
+label {
+	margin: 15px 0 7px;
+    font-size: 1rem;
+    font-weight: normal;
+    color: $heading;
+}
+
+button,
+.button {
+	background-color: $accent_main;
+
+	&:hover,
+	&:focus {
+		background-color: lighten($accent_main, 5%);
+		outline: none;
+	}
+
+	&.button-secondary {
+		background-color: $accent_secondary;
+
+		&:hover {
+			background-color: lighten($accent_secondary, 5%);
+		}
+	}
+}
+
+.button {
+	border: 0;
+
+	&.large {
+		font-size: 1rem;
+	}
+}
+
+.gia-button-block {
+	display: block;
+}
+
+.badge {
+	background-color: darken($alternative_bg, 30%);
+}
+
+.tabs-title > a {
+	font-size: 1rem;
+	background-color: $alternative_bg;
+	color: $body;
+
+	&[aria-selected='true'] {
+		background-color: $accent_secondary;
+		color: #fff;
+
+		&:hover {
+			color: #fff;
+		}
+	}
+
+	&:hover,
+	&:hover{
+		color: $accent_secondary;
+	}
+}
+
+
+/**
+ * Misc
+ */
+
+.gia-section {
+	padding: 70px 0;
+}
+
+.gia-color-light {
+	color: $body_light;
+
+	p,
+	span {
+		color: $body_light;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		color: $heading_light;
+	}
+}
+
+.gia-centered-container {
+	max-width: 546px;
+	margin: 0 auto;
+}
+.gia-centered-container-lg {
+	max-width: 846px;
+	margin: 0 auto;
+}
+
+.gia-page-heading {
+	margin-top: 10px;
+	margin-bottom: 35px;
+}
+
+.gia-section-heading {
+
+	h6 {
+		font-weight: normal;
+	}
+
+	&.gia-heading-normal {
+		font-weight: normal;
+	}
+
+	&.gia-underlined-heading{
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5,
+		h6 {
+			position: relative;
+
+			&:after {
+				content: '';
+				display: block;
+				height: 2px;
+				width: 20px;
+				margin-top: 6px;
+				background-color: $accent_main;
+			}
+		}
+	}
+}
+
+.gia-messages {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 15px;
+	left: 50%;
+	transform: translateX(-50%);
+
+	span {
+		display: inline-block;
+	}
+}
+
+.gia-alert {
+	padding: 1rem;
+	border: 1px solid rgba(10, 10, 10, 0.25);
+	border-radius: 3px;
+
+	&.debug{
+		background-color: #FFA500;
+	}
+	&.info{
+		background-color: #d9edf7;
+		border-color: #bce8f1;
+		color: #31708f;
+	}
+	&.success{
+		background-color: #dff0d8;
+		border-color: #d6e9c6;
+		color: #3c763d;
+	}
+	&.warning{
+		background-color: #fcf8e3;
+		border-color: #faebcc;
+		color: #8a6d3b;
+	}
+	&.error	{
+		background-color: #f2dede;
+		border-color: #ebccd1;
+		color: #a94442;
+	}
+}
+
+.gia-normal-text {
+
+	h4 {
+		margin-top: 35px;
+		margin-bottom: 0.7rem;
+		font-size: 1.3625rem
+	}
+	h5 {
+		margin-top: 20px;
+		margin-bottom: 0.5rem;
+	}
+	p {
+		margin-bottom: 0.5rem;
+	}
+}
+
+/**
+ * Form Error Messages
+ */
+
+.errorlist {
+	margin: 10px 0 -12px 0;
+	padding: 0;
+	font-size: 0.9rem;
+	color: #cc2306;
+	list-style-type: none;
+}
+
+.errorlist-form {
+	margin: 0;
+	padding: 0;
+	color: #cc2306;
+	list-style-type: none;
+}
+
+
+/**
+ * Orbit Slider
+ */
+
+.button-orbit {
+	background-color: transparent;
+
+	&:focus {
+		outline: none;
+	}
+}
+
+/**
+ * Helpers
+ */
+
+.gia-mt-30 {
+	margin-top: 30px;
+}
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Header
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-top-bar {
+	background-color: $alternative_bg;
+	padding: 10px 0;
+	font-weight: bold;
+	color: $sub_body;
+
+	.gia-top-bar-messages {
+
+		.gia-unread-messages {
+			display: none;
+			color: $accent_secondary;
+		}
+
+		&.unread {
+
+			.gia-unread-messages {
+				display: inline-block;
+			}
+			i {
+				color: $accent_secondary;
+			}
+		}
+	}
+
+	a {
+		margin-left: 4px;
+	}
+
+	.gia-auth-buttons {
+		display: flex;
+		justify-content: flex-end;
+
+		span {
+			margin-right: 20px;
+
+			&:last-of-type {
+				margin-right: 0;
+			}
+		}
+
+		i {
+			font-size: 0.95rem;
+		}
+	}
+}
+
+.gia-main-header {
+	width: 100%;
+	padding: 30px 0;
+
+	.gia-cta {
+		display: flex;
+		justify-content: flex-end;
+
+		.gia-cta-button {
+			font-weight: bold;
+			margin-bottom: 0;
+			border-radius: 6px;
+			padding: 1.1em 2.2em;
+		}
+	}
+}
+
+/**
+ * Logo
+ */
+.gia-logo {
+	max-width: 200px;
+}
+
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Footer
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-main-footer {
+	background-color: #dddce3;
+}
+
+.gia-footer-items {
+	display: flex;
+	justify-content: center;
+
+	a {
+		font-size: 16px;
+		color: $body;
+		margin-right: 20px;
+
+		&:hover {
+			color: $accent_main;
+		}
+	}
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Hero Section
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-section-hero {
+	padding: 50px 0;
+	color: #fff;
+	background-color: $accent_main;
+
+	h4 {
+		margin-bottom: 25px;
+	}
+}
+
+.gia-section-hero-bg {
+	padding: 200px 0;
+	background-image: url('../img/hero-bg.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+
+	h2 {
+		font-weight: normal;
+		color: $heading_light;
+		margin-bottom: 1.2rem;
+	}
+}
+
+
+/**
+ * Hero Search
+ */
+.gia-hero-search {
+	width: 100%;
+
+	input,
+	select {
+	    height: 3.4375rem;
+	    padding: 1rem;
+	    margin-bottom: 0;
+	}
+	select {
+		padding-right: 2rem;
+	}
+
+	.button {
+		padding-right: 40px;
+		padding-left: 40px;
+	}
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Main Content
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-main {}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Items Archive
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-archive {
+	background-color: $alternative_bg;
+	padding: 40px 0;
+
+	.gia-section-heading {
+		color: $sub_body;
+		margin-bottom: 20px;
+	}
+
+	.gia-item-body {
+		display: flex;
+		padding: 12px 10px;
+	}
+	.gia-item-name {
+		flex-grow: 2;
+		padding-right: 15px;
+		line-height: 1.4;
+
+		a {
+			color: $body;
+			font-weight: bold;
+
+			&:hover {
+				color: $accent_main;
+			}
+		}
+	}
+	.gia-item-location {
+		font-size: 0.9rem;
+		color: $sub_body;
+	}
+}
+
+.gia-archive-header {
+	margin-bottom: 60px;
+	display: flex;
+	justify-content: center;
+
+	.gia-archive-header-wrapper {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 22px;
+		background-color: #fff;
+	}
+
+	a {
+		padding: 12px 50px;
+		font-size: 18px;
+		color: $sub_body;
+		font-weight: bold;
+		// border: 2px solid #ddd;
+
+		&:first-of-type {
+			border-top-left-radius: 22px;
+			border-bottom-left-radius: 22px;
+		}
+		&:last-of-type {
+			border-top-right-radius: 22px;
+			border-bottom-right-radius: 22px;
+			// border-left: 1px solid #ddd;
+		}
+
+		&.active {
+			color: #fff;
+			background-color: $accent_secondary;
+		}
+	}
+}
+
+.gia-archive-items {
+	margin-left: -15px;
+	margin-right: -15px;
+	overflow-x: hidden;
+}
+
+.gia-archive-item {
+	padding: 0 15px;
+	margin-bottom: 35px;
+}
+
+.gia-search-archive {
+	padding-top: 80px;
+}
+
+/**
+ * Pagination
+ */
+
+.gia-pagination {
+	margin: 45px 0 25px 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&> a {
+		border: 0;
+		padding: 7px 15px;
+		color: $body;
+		margin: 0 3px;
+		background-color: $alternative_bg;
+		border-radius: 1px;
+
+		&:hover {
+			background-color: darken($alternative_bg, 10%);
+		}
+	}
+	.current {
+		cursor: default;
+		margin: 0 3px;
+		padding: 7px 15px;
+		border-radius: 1px;
+		color: #fff;
+		background-color: $accent_main;
+	}
+	.disabled {
+		cursor: not-allowed;
+	}
+	.ellipsis {
+		margin: 0 10px;
+		padding: 0 10px;
+
+		&::after {
+			content: '\2026';
+		}
+	}
+	.pagination-next,
+	.pagination-previous {
+		border-radius: 0;
+	}
+
+	.pagination-previous {
+		border-top-left-radius: 5px;
+		border-bottom-left-radius: 5px;
+	}
+	.pagination-next {
+		border-top-right-radius: 5px;
+		border-bottom-right-radius: 5px;
+	}
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Iconboxes
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-iconbox {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin-top: 40px;
+	padding: 0 20%;
+}
+.gia-iconbox-icon {
+	font-size: 50px;
+	color: $body_light;
+}
+.gia-iconbox-title {
+	font-size: 18px;
+	font-weight: normal;
+	text-align: center;
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Home
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-steps {
+	background-color: $accent_secondary;
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Single
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-single-details {}
+
+.gia-item-details {
+	margin-bottom: 38px;
+	padding-bottom: 48px;
+	border-bottom: 2px solid $border_dark;
+}
+
+.gia-details-header {
+	margin-bottom: 22px;
+
+	.gia-item-name {
+		font-size: 32px;
+		margin-bottom: 6px;
+		font-weight: bold;
+	}
+	p {
+		margin-bottom: 2px;
+	}
+	.gia-item-date {
+
+		small {
+			color: $sub_body;
+		}
+	}
+}
+
+.gia-meta-title {
+	font-weight: bold;
+	color: $accent_secondary;
+	margin-right: 7px;
+}
+
+.gia-details-description {
+	margin-bottom: 50px;
+}
+
+.gia-details-footer {
+
+	.gia-request-button {
+		margin-bottom: 0;
+	}
+}
+
+.gia-user-detail {
+
+	.gia-section-heading h4 {
+		margin-bottom: 20px;
+		font-size: 18px;
+		text-align: left;
+	}
+
+	.gia-user-meta,
+	.gia-user-links {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+
+		li {
+			display: flex;
+			align-items: center;
+			margin-bottom: 5px;
+
+			i {
+				color: $accent_secondary;
+				margin-right: 10px;
+			}
+		}
+	}
+}
+
+.gia-report-note {
+	color: $sub_body;
+	font-size: 80%;
+}
+
+.gia-item-availability {
+	margin-top: 30px;
+	margin-bottom: 0;
+}
+
+.gia-single-images {
+	margin-bottom: 20px;
+}
+
+/**
+ * Social Share
+ */
+
+.gia-share-buttons {
+
+	a {
+		display: inline-block;
+		margin-left: 5px;
+		font-size: 12px;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		color: #fff;
+		border-bottom: 0;
+		text-align: center;
+		border-radius: 50%;
+
+		&:first-of-type {
+			margin-left: 0;
+		}
+	}
+}
+
+.gia-share-facebook {
+	background-color: #3b5998;
+}
+.gia-share-twitter {
+	background-color: #55acee;
+}
+.gia-share-google {
+	background-color: #db3236;
+}
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Item Create/Update View
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-item-delete {
+	margin-top: 60px;
+	padding: 60px 0;
+	border-top: 1px solid $border_dark;
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Delete View
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-item-confirm-delete {
+
+	img {
+		max-width: 220px;
+		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	form {
+		margin-top: 20px;
+	}
+	.gia-delete-button-group {
+		display: flex;
+		align-items: center;
+	}
+
+	.gia-form {
+
+		input[type="submit"] {
+			margin-top: 0;
+		}
+		.gia-confirm-delete-cancel {
+			background-color: transparent;
+			color: $accent_main;
+			margin-left: 40px;
+			margin-bottom: 0;
+			padding: 0;
+
+			&:hover {
+				color: lighten($accent_main, 7%);
+			}
+		}
+	}
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Main Forms
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-main-form {
+	margin-top: 60px;
+}
+
+.gia-form {
+
+	input,
+	select {
+		margin-bottom: 22px;
+	}
+
+	textarea {
+		margin-bottom: 32px;
+	}
+
+	button[type="submit"],
+	input[type="submit"] {
+		margin-top: 16px;
+		margin-bottom: 0;
+	}
+}
+
+.gia-checkbox-fieldwrapper {
+
+}
+
+.gia-form-checkbox {
+	display: flex;
+	margin-bottom: 20px;
+	margin-top: 10px;
+	align-items: center;
+    cursor: pointer;
+
+    input {
+    	margin: 0 7px 0 0;
+    }
+}
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Post an Item
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-form-heading {
+
+	h3,
+	p {
+		color: $accent_secondary;
+	}
+}
+
+.gia-image-fields-label {
+	padding-top: 10px;
+}
+
+.gia-image-fields {
+	display: flex;
+	flex-wrap: wrap;
+	// justify-content: center;
+	align-items: center;
+	margin: 2px 0 20px 0;
+
+	&.gia-image-fields-update {
+		display: block;
+
+		a {
+			margin-right: 10px;
+		}
+
+		input[type="checkbox"] {
+			// float: right;
+			margin-bottom: 0;
+
+			& + label {
+				margin: 0
+			}
+		}
+
+
+		input[type="file"] + label {
+    		margin: 2px 0 30px;
+		}
+
+
+	}
+}
+
+.gia-image-field {
+	margin: 15px 20px 15px 0;
+
+	input[type="file"] {
+		width: 0.1px;
+		height: 0.1px;
+		opacity: 0;
+		overflow: hidden;
+		position: absolute;
+		z-index: -1;
+	}
+
+	input[type="file"] + label {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	    padding: 1.25rem 1.25rem;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    overflow: hidden;
+	    font-size: 1em;
+        margin: 0;
+	    cursor: pointer;
+		border: 1px solid $border_dark;
+		background-color: $alternative_bg;
+	}
+
+	input[type="file"] + label * {
+		pointer-events: none;
+	}
+
+	input[type="file"]:focus + label,
+	input[type="file"].has-focus + label,
+	input[type="file"] + label:hover {
+    	// border-color: #722040;
+	    background-color: darken($alternative_bg, 10%);
+	}
+
+}
+
+#other_category_field {
+	display: block;
+}
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Dashboard & Messages
+ * -------------------------------------------------------------------------------------
+ */
+
+
+.tabs-panel {
+	padding: 2rem 3rem;
+
+	&.tabs-panel-no-padding {
+		padding: 0;
+	}
+}
+
+.tabs-content.vertical {
+	border-left: 1px solid #e6e6e6;
+}
+
+.gia-dashboard-panel {
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid $border_dark;
+
+	&:last-of-type {
+		margin-bottom: 0;
+		border-bottom: 0;
+	}
+
+	.gia-section-heading {
+		margin-bottom: 20px;
+	}
+}
+
+.gia-dashboard-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	li {
+		display: flex;
+		align-items: center;
+		margin-bottom: 12px;
+
+		i {
+			color: $accent_secondary;
+			margin-right: 5px;
+		}
+	}
+}
+
+.accordion-item {
+	border-bottom: 1px solid $border_dark;
+
+	&:last-of-type {
+		border-bottom: 0;
+	}
+}
+
+.accordion-title {
+	font-size: 1rem;
+	color: $body;
+	line-height: 1.5;
+	border: 0 !important;
+	border-radius: 0 !important;
+
+	&:focus {
+		color: $body;
+	}
+	&:hover {
+		color: $accent_main;
+	}
+	&:before {
+		line-height: 1;
+	}
+}
+
+.accordion-content {
+	border: 0 !important;
+	background-color: #fff;
+	padding: 15px;
+	border-left: 1px solid $border_dark;
+
+	.accordion-content-wrapper {
+		padding: 0.5rem 1.5rem 0.625rem 1.5rem
+	}
+	p {
+		margin-bottom: 0;
+	}
+}
+
+.gia-profile-message {
+	padding: 20px 0;
+}
+
+.gia-profile-message-panel {
+	margin-bottom: 25px;
+
+	h6 {
+		font-size: 14px;
+		color: $sub_body;
+		margin-bottom: 5px;
+	}
+
+	&:last-of-type {
+		margin-bottom: 0;
+	}
+}
+
+.gia-message-action-link {
+	display: inline-block;
+	margin-top: 12px;
+	padding-top: 7px;
+	border-top: 1px solid #f1f1f1;
+	font-size: 0.9rem;
+	padding-right: 30px;
+}
+
+.gia-message-unread {
+	font-weight: bold;
+}
+
+
+/**
+ * Flexbox Table
+ */
+.table-row {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 0;
+	flex-wrap: wrap;
+	width: 100%;
+	padding: 15px;
+	border-collapse: collapse;
+
+	&.table-header {
+		background-color: #f1f1f1;
+		font-weight: bold;
+		padding-top: 2px;
+		padding-bottom: 2px;
+
+		.table-cells {
+			border-right: 1px solid #fefefe;
+
+			&:last-of-type {
+				border-right: 0;
+			}
+		}
+	}
+}
+
+.table-cells {
+	width: 25%;
+	overflow: hidden;
+	padding: 0.5rem 1.5rem 0.625rem 1.5rem;
+
+	&.small-cell {
+		width: 15%;
+	}
+	&.large-cell {
+		width: 35%;
+	}
+}
+
+.table-message {
+	padding: 10px 20px;
+	text-align: center;
+
+	p {
+		margin-bottom: 0;
+	}
+}
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Forms
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-form-meta {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	margin-bottom: 30px;
+	padding-bottom: 30px;
+	border-bottom: 1px solid $border_dark;
+
+	li {
+		display: flex;
+		flex-direction: 0;
+		margin-bottom: 10px;
+
+		&.gia-flex-column {
+			flex-direction: column;
+
+			.gia-meta-title {
+				margin-bottom: 3px;
+			}
+		}
+
+		&:last-of-type {
+			margin-bottom: 0;
+		}
+	}
+
+}
+
+/**
+ * Login Form
+ */
+
+.gia-auth-form {
+	// background-color: $alternative_bg;
+	border: 2px solid $border_dark;
+	padding: 60px 40px 40px;
+}
+
+form.login {
+
+	label {
+		display: inline-block;
+	}
+}
+.gia-forgotten-password {
+	margin-top: 40px;
+	padding-top: 10px;
+	border-top: 1px solid $border_dark;
+}
+
+.social-temp {
+	display: none;
+}
+
+.gia-social-auth {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	a {
+		display: flex;
+		align-items: center;
+		color: #fff;
+	    border-radius: 3px;
+	    width: 136px;
+	    height: 38px;
+	    line-height: 36px;
+	    margin: 0 5px;
+	    border: 1px solid transparent;
+
+	    &:first-of-type {
+	    	margin-left: 20px;
+	    }
+	}
+}
+
+.gia-provider-icon {
+	display: inline-block;
+	width: 38px;
+	height: 100%;
+	font-size: 0.9rem;
+	text-align: center;
+	border-right: 1px solid rgba(12,13,14,0.1);
+}
+
+.gia-provider-text {
+	display: inline-block;
+	flex-grow: 1;
+	font-size: 0.9rem;
+	height: 100%;
+	text-align: center;
+}
+
+.gia-google-auth {
+	background-color: #e0492f;
+}
+.gia-twitter-auth {
+	background-color: #00aced;
+}
+
+
+.or-container {
+    text-align: center;
+    margin: 26px 0 0;
+    color: #6a737c;
+    font-variant: small-caps;
+}
+
+.or-hr {
+    margin-bottom: 0;
+    position: relative;
+    top: 19px;
+    height: 0;
+    border: 0;
+    border-top: 1px solid #e4e6e8;
+}
+
+#or {
+    display: inline-block;
+    position: relative;
+    padding: 10px;
+    line-height: 1;
+    background-color: #FFF;
+}
+
+.gia-auth-extra-box {
+	margin-top: 40px;
+	padding: 0 40px;
+}
+
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Profile
+ * -------------------------------------------------------------------------------------
+ */
+
+.gia-profile-list {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	li {
+		display: flex;
+		align-items: center;
+		margin-bottom: 12px;
+
+		i {
+			color: $accent_secondary;
+			margin-right: 5px;
+		}
+	}
+}
+
+
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Responsiveness
+ * -------------------------------------------------------------------------------------
+ */
+
+@media screen and (max-width: 39.9375em) {
+
+	// Forms
+	.gia-form {
+
+		input,
+		select {
+			margin-bottom: 18px;
+		}
+
+		textarea {
+			margin-bottom: 26px;
+		}
+
+		button[type="submit"],
+		input[type="submit"] {
+			margin-top: 12px;
+			margin-bottom: 0;
+		}
+	}
+
+	// Top Bar
+	.gia-top-bar {
+		padding-right: 14px;
+		padding-left: 14px;
+
+		.gia-auth-buttons {
+			font-size: 14px;
+
+			span {
+				margin-left: 10px;
+				margin-right: 0;
+
+				&:first-of-type {
+					margin-left: 0;
+				}
+
+				&:last-of-type {
+					margin-right: 0;
+				}
+			}
+		}
+
+		i {
+			display: none;
+		}
+		&> .row {
+			// flex-direction: column;
+			justify-content: center;
+			align-items: center;
+
+			&> .column:last-of-type {
+				flex-grow: 2;
+				// text-align: right;
+			}
+		}
+	}
+
+	// Main Header
+	.gia-main-header {
+
+		&> .row {
+			justify-content: center;
+			text-align: center;
+		}
+
+		.gia-cta {
+			display: flex;
+			justify-content: center;
+
+			.gia-cta-button {
+				font-weight: bold;
+				margin-top: 10px;
+				border-radius: 10px;
+				padding: 0.9em 1.6em;
+			}
+		}
+	}
+
+	// Hero Sections
+	.gia-section-hero {
+		padding: 30px 0;
+		h4 {
+			margin-bottom: 25px;
+		}
+	}
+	.gia-section-hero-bg {
+		padding: 100px 0;
+
+		h2 {
+			font-weight: normal;
+			color: $heading_light;
+			margin-bottom: 1.2rem;
+		}
+	}
+	.gia-hero-search {
+		width: 100%;
+
+		input,
+		select {
+		    height: 2.9rem;
+		    padding: 0.8rem;
+		    margin-bottom: 1rem;
+		}
+
+		.button {
+			margin-bottom: 0;
+			padding-right: 20px;
+			padding-left: 20px;
+		}
+	}
+
+	// IconBox
+	.gia-iconbox {
+		margin-top: 20px;
+		padding: 0 10%;
+	}
+	.gia-iconbox-icon {
+		font-size: 30px;
+	}
+	.gia-iconbox-title {
+		font-size: 14px;
+	}
+
+	// Footer
+	.gia-main-footer {
+		padding: 40px 0;
+	}
+	.gia-footer-items {
+		flex-direction: column;
+		text-align: center;
+
+		a {
+			margin-right: 0;
+			margin-bottom: 5px;
+		}
+
+	}
+
+	// Archive Header Tabs
+	.gia-archive-header {
+		margin-bottom: 40px;
+
+		.gia-archive-header-wrapper {
+			border-radius: 4px;
+		}
+
+		a {
+			padding: 6px 20px;
+			font-size: 14px;
+
+			&:first-of-type {
+				border-top-left-radius: 4px;
+				border-bottom-left-radius: 4px;
+			}
+			&:last-of-type {
+				border-top-right-radius: 4px;
+				border-bottom-right-radius: 4px;
+			}
+		}
+	}
+
+	// Item Details
+	.gia-user-detail {
+
+		.gia-section-heading h4 {
+			margin-bottom: 16px;
+			font-size: 16px;
+		}
+
+		.gia-user-meta,
+		.gia-user-links {
+			li {
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				margin-bottom: 16px;
+				line-height: 1.4;
+
+				i {
+					display: none;
+				}
+			}
+		}
+	}
+	.gia-report-note {
+		margin-top: 40px;
+	}
+
+	// Login Page
+	.gia-social-auth {
+		flex-direction: column;
+		align-items: flex-start;
+
+		&> span {
+			margin-bottom: 10px;
+		}
+
+		a {
+			display: flex;
+			align-items: center;
+			color: #fff;
+		    border-radius: 3px;
+		    width: 136px;
+		    height: 38px;
+		    line-height: 36px;
+		    margin: 0 0 10px 0;
+		    border: 1px solid transparent;
+
+		    &:first-of-type {
+		    	margin-left: 0;
+		    }
+		}
+	}
+	.gia-auth-form {
+		border: 0;
+		padding: 20px 20px 20px;
+	}
+	.gia-auth-extra-box {
+		margin-top: 20px;
+		margin-right: 20px;
+		margin-left: 20px;
+		padding: 20px 0;
+		border-top: 1px solid $border_dark;
+	}
+	.gia-form-checkbox {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 20px;
+		margin-top: 10px;
+		align-items: flex-start;
+	    cursor: pointer;
+	    line-height: 1.4;
+
+	    input {
+	    	margin: 0 0 7px 0;
+	    }
+	}
+
+	.gia-archive {
+
+		.gia-item-body {
+			flex-direction: column;
+			padding: 0;
+		}
+	}
+
+
+  .hide-for-small-only {
+    display: none !important; }
+}
+
+@media screen and (max-width: 0em), screen and (min-width: 40em) {
+
+  .show-for-small-only {
+    display: none !important; }
+}
+
+@media print, screen and (min-width: 40em) {
+
+	// Item Details
+	.gia-item-details,
+	.gia-user-detail {
+		margin-right: 20px;
+	}
+
+}
+
+@media screen and (max-width: 39.9375em) {
+
+  .show-for-medium {
+    display: none !important; }
+}
+
+@media screen and (min-width: 40em) and (max-width: 63.9375em) {
+
+	// IconBoxes
+	.gia-iconbox {
+		margin-top: 30px;
+		padding: 0 15%;
+	}
+	.gia-iconbox-icon {
+		font-size: 40px;
+	}
+	.gia-iconbox-title {
+		font-size: 16px;
+	}
+
+	// Footer Items
+	.gia-footer-items {
+		margin-bottom: 40px;
+		text-align: center;
+
+		h5 {
+
+			&:after {
+			    position: absolute;
+			    left: 50%;
+			    transform: translateX(-50%);
+			}
+		}
+	}
+
+	// Archive Header Tabs
+	.gia-archive-header {
+		margin-bottom: 40px;
+
+		.gia-archive-header-wrapper {
+			border-radius: 6px;
+		}
+
+		a {
+			padding: 10px 36px;
+			font-size: 16px;
+
+			&:first-of-type {
+				border-top-left-radius: 6px;
+				border-bottom-left-radius: 6px;
+			}
+			&:last-of-type {
+				border-top-right-radius: 6px;
+				border-bottom-right-radius: 6px;
+			}
+		}
+	}
+
+  .hide-for-medium-only {
+    display: none !important; }
+}
+
+@media screen and (max-width: 39.9375em), screen and (min-width: 64em) {
+
+  .show-for-medium-only {
+    display: none !important; }
+}
+
+@media print, screen and (min-width: 64em) {
+
+	.button {
+		&.large {
+			padding: 16px 32px;
+		}
+	}
+
+  .hide-for-large {
+    display: none !important; }
+}
+
+@media screen and (max-width: 63.9375em) {
+
+  .show-for-large {
+    display: none !important; }
+}
+
+@media screen and (min-width: 64em) and (max-width: 74.9375em) {
+
+  .hide-for-large-only {
+    display: none !important; }
+}
+
+@media screen and (max-width: 63.9375em), screen and (min-width: 75em) {
+
+  .show-for-large-only {
+    display: none !important; }
+}
+
+
+/**
+ * -------------------------------------------------------------------------------------
+ * Temp
+ * -------------------------------------------------------------------------------------
+ */
+
+#image1-clear_id,
+#image2-clear_id,
+#image3-clear_id {
+	display: none;
+
+	& + label {
+		display: none;
+	}
+}

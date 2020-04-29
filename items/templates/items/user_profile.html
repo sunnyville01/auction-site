@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+{% load item_extras %}
+
+{% block title %}Profile {{ profile_user.username }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <div class="gia-section">
+        <div class="row align-middle">
+            <div class="column">
+                <h3 class="text-center">{{ profile_user.username }}</h3>
+            </div>
+            <div class="column">
+                <ul class="gia-profile-list">
+                    <li>
+                        <span class="gia-meta-title">Member Since:</span>
+                        <span>{{ profile_user.date_joined|date:"t M Y"}}</span>
+                    </li>
+                    <li>
+                        <span class="gia-meta-title">Items Given:</span>
+                        <span class="badge">{{ free_items_count }}</span>
+                    </li>
+                    <li>
+                        <span class="gia-meta-title">Items Taken:</span>
+                        <span class="badge">{{ wanted_items_count }}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <main class="gia-main">
+        <div class="gia-archive gia-section">
+
+            <!-- Archive Tabs -->
+            <div class="row columns">
+                <div class="gia-archive-header">
+                    <div class="gia-archive-header-wrapper">
+                        <a href="{% url "items:profile" username=profile_user.username %}" class="active">FREE</a>
+                        <a href="{% url "items:profile_wanted" username=profile_user.username %}">Wanted</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List of Items -->
+            {% item_archive %}
+
+        </div>
+    </main>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+{% load item_extras %}
+
+{% block title %}Home - Wanted | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search_bg %}
+
+    <!-- Main -->
+    <main class="gia-main">
+        <div class="gia-archive gia-section">
+
+            <!-- Archive Tabs -->
+            <div class="row columns">
+                <h5 class="gia-section-heading gia-heading-normal text-center">Give away or find FREE second hand stuff</h5>
+                <div class="gia-archive-header">
+                    <div class="gia-archive-header-wrapper">
+                        <a href="{% url "items:home" %}">FREE</a>
+                        <a href="{% url "items:home_wanted" %}" class="active">Wanted</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List of Items -->
+            {% item_archive %}
+
+        </div>
+
+        <section class="gia-section gia-steps gia-color-light">
+            <div class="row columns">
+                <div class="gia-section-heading text-center">
+                    <h3><b>How</b> to give things away</h3>
+                    <h6>Be clutter free! Have someone come and take it away in 3 easy steps!</h6>
+                </div>
+            </div>
+            <div class="row align-center">
+                <div class="column small-10">
+                    <div class="row">
+                        <div class="columns">
+                            <div class="gia-iconbox">
+                                <div class="gia-iconbox-icon"><i class="fa fa-camera-retro"></i></div>
+                                <h4 class="gia-iconbox-title">Snap a photo and write a description</h4>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="gia-iconbox">
+                                <div class="gia-iconbox-icon"><i class="fa fa-users"></i></div>
+                                <h4 class="gia-iconbox-title">Pick someone to give it to</h4>
+                            </div>
+                        </div>
+                        <div class="columns">
+                            <div class="gia-iconbox">
+                                <div class="gia-iconbox-icon"><i class="fa fa-home"></i></div>
+                                <h4 class="gia-iconbox-title">Pop it on your porch ready for collection</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

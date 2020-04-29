@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+{% load item_extras %}
+
+{% block title %}{{ category.title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <!-- Main -->
+    <main class="gia-main">
+        <div class="gia-archive gia-section">
+
+            <!-- Archive Tabs -->
+            <div class="row columns">
+                <h2 class="text-center gia-page-heading">{{ category.title }}</h2>
+                <div class="gia-archive-header">
+                    <div class="gia-archive-header-wrapper">
+                        <a href="{% url "items:category_items" pk=category.pk slug=category.slug %}">FREE</a>
+                        <a href="{% url "items:category_items_wanted" pk=category.pk slug=category.slug %}" class="active">Wanted</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- List of Items -->
+            {% item_archive %}
+
+        </div>
+    </main>
+
+{% endblock %}

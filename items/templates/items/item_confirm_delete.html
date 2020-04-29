@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load item_extras %}
+{% load cloudinary %}
+
+{% block title %}Delete {{ item.name|title }} | {{ block.super }}{% endblock %}
+
+{% block content %}
+
+    <!-- Hero Search-->
+    {% hero_search %}
+
+    <div class="gia-main gia-section">
+        <div class="row column">
+            <div class="gia-centered-container gia-item-confirm-delete">
+
+                <h4>Delete {{ item.name }}?</h4>
+
+                {% if item.image1 %}
+                    {% cloudinary item.image1 %}
+                {% elif item.image2 %}
+                    {% cloudinary item.image2 %}
+                {% elif item.image3 %}
+                    {% cloudinary item.image3 %}
+                {% endif %}
+
+                <form method='POST' class="gia-form">
+                	{% csrf_token %}
+                    <div class="gia-delete-button-group">
+                    	<input type="submit" class="button large alert" value="Delete">
+                        <a class="button large gia-confirm-delete-cancel" href="{% url 'items:detail' pk=item.pk slug=item.slug %}">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
